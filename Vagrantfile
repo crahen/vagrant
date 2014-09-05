@@ -17,6 +17,7 @@ Vagrant.configure("2") do |config|
 
       # SSH
       override.ssh.username = VAGRANT_SSH_USERNAME
+      override.ssh.forward_x11 = true
       #override.ssh.private_key_path = File.expand_path(VAGRANT_SSH_KEY)
       #override.ssh.pty = true
 
@@ -25,7 +26,6 @@ Vagrant.configure("2") do |config|
     # Docker
     v.vm.provision "shell", inline: "sudo apt-get -y update"
     v.vm.provision "shell", inline: "sudo apt-get -y install docker.io"
-    v.vm.provision "shell", inline: "sudo ln -s /usr/bin/docker.io /usr/bin/docker"
     v.vm.provision "shell", inline: "sudo usermod -aG docker " + VAGRANT_SSH_USERNAME
 
   end
@@ -53,6 +53,7 @@ Vagrant.configure("2") do |config|
       override.ssh.username = VAGRANT_SSH_USERNAME
       override.ssh.private_key_path = File.expand_path(VAGRANT_SSH_KEY)
       override.ssh.pty = true
+      override.ssh.forward_x11 = true
 
     end
 
@@ -84,12 +85,13 @@ Vagrant.configure("2") do |config|
       aws.subnet_id = AMAZON_SUBNET
       aws.security_groups = [AMAZON_SECURITY_GROUP]
       aws.associate_public_ip = "true"
-      aws.user_data = "#cloud-config\nsystem_info:\n  default_user:\n    name: vagrant"
+      aws.user_data = "#cloud-config\nhostname: aws\nsystem_info:\n  default_user:\n    name: vagrant"
 
       # SSH
       override.ssh.username = VAGRANT_SSH_USERNAME
       override.ssh.private_key_path = File.expand_path(VAGRANT_SSH_KEY)
       override.ssh.pty = true
+      override.ssh.forward_x11 = true
 
     end
 
