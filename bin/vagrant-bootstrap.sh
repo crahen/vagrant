@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -xe
 
 ######################################################################################
 # Install Vagrant, Plugins and Boxes required to start VMs in EC2, GCE or Virtual Box
@@ -13,7 +13,7 @@ VAGRANT_SSH_KEY=~/.ssh/id_vagrant
 # to issue commands over SSH to guest machines.
 if [ ! -e $VAGRANT_SSH_KEY ]; then
   mkdir -p ~/.ssh
-  ssh-keygen -t rsa -f $VAGRANT_SSH_KEY -N '' -y -C 'vagrant@cloud'
+  ssh-keygen -t rsa -f $VAGRANT_SSH_KEY -N '' -C 'vagrant@cloud'
 fi
 
 

@@ -1,10 +1,9 @@
 # Vagrant
 
 ## Configure
-
-Run vagrant-bootstrap.sh and add your credentials to your personal Vagrantfile
-
 ### ~/.vagrant.d/Vagrantfile:
+
+Run vagrant-bootstrap.sh and add your credentials to your personal Vagrantfile.
 
 <pre>
 &#35; Amazon Credentials - used to provision AWS Cloud environments
@@ -14,9 +13,7 @@ AMAZON_SSH_KEYPAIR_NAME = "vagrant"
 AMAZON_SSH_PRIVATE_KEY = "~/.aws/vagrant.pem"
 
 &#35; Amazon Resources
-AMAZON_IMAGE = "ami-d13845e1"
 AMAZON_REGION = "us-west-2"
-AMAZON_INSTANCE_TYPE = "t2.micro"
 AMAZON_SECURITY_GROUP = "sg-8669e0e3"
 AMAZON_SUBNET = "subnet-73407707"
 
@@ -27,8 +24,6 @@ GOOGLE_SERVCE_ACCOUNT_EMAIL = "XXX"
 GOOGLE_SERVCE_ACCOUNT_KEY = "~/.google/vagrant.p12"
 
 &#35; Google Resources
-GOOGLE_IMAGE = 'debian-7-wheezy-v20140619'
-GOOGLE_INSTANCE_TYPE = 'n1-standard-1'
 GOOGLE_ZONE = 'us-central2-a'
 
 
@@ -37,10 +32,16 @@ VAGRANT_SSH_USERNAME = "vagrant"
 VAGRANT_SSH_KEY = "~/.ssh/id_vagrant"
 </pre>
 
+### ~/.ssh/config:
 
-## Usage
+Enable X11 forwarding in SSH.
 
-Create VM
+<pre>
+Host *
+  ForwardX11 yes
+</pre>
+
+Create a VM
 
 <pre>
 vagrant up vbox
@@ -49,16 +50,16 @@ vagrant up gce --provider=google
 </pre>
 
 
-Control VM
+SSH into VM w/ X11 forwarding
 
 <pre>
-vagrant ssh vbox
-vagrant ssh ec2
-vagrant ssh gce
+vagrant ssh vbox -- -Y
+vagrant ssh ec2 -- -Y
+vagrant ssh gce -- -Y
 </pre>
 
 
-Destroy VM
+Tear down VM
 
 <pre>
 vagrant destroy vbox

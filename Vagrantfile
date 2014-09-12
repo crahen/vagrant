@@ -1,6 +1,12 @@
 Vagrant.require_version ">= 1.6"
 
 
+AMAZON_IMAGE ||= "ami-d13845e1"
+AMAZON_INSTANCE_TYPE ||= "t2.micro"
+GOOGLE_IMAGE ||= 'debian-7-wheezy-v20140619'
+GOOGLE_INSTANCE_TYPE| = 'n1-standard-1'
+
+
 # Create minimal VMs with Docker installed
 Vagrant.configure("2") do |config|
 
@@ -17,6 +23,7 @@ Vagrant.configure("2") do |config|
 
       # SSH
       override.ssh.username = VAGRANT_SSH_USERNAME
+      override.ssh.forward_agent = false
       override.ssh.forward_x11 = true
       #override.ssh.private_key_path = File.expand_path(VAGRANT_SSH_KEY)
       #override.ssh.pty = true
