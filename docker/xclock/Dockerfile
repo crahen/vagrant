@@ -6,6 +6,17 @@ CMD xclock
 
 
 # Run xclock in the docker container, exposing a unix socket and
-# environment variable connecting display :0 to the host X11 system.
+# environment variable connecting container display :0 to the host
+# X11 system.
 #
-#   docker run -v $XSOCK:/tmp/.X11-unix/X0 -e DISPLAY=:0 -i -t xclock xclock
+# XAUTH=/tmp/.docker.$$.xauth
+# touch $XAUTH
+# xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
+# XSOCK=/tmp/.X11-unix/X${DISPLAY#:}
+# docker run \
+#  -e DISPLAY=:0 \
+#  -e XAUTHORITY=$XAUTH \
+#  -v $XSOCK:/tmp/.X11-unix/X0 \
+#  -v $XAUTH:$XAUTH \
+#  -i \
+#  -t xclock xclock
