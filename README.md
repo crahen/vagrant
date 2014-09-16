@@ -72,9 +72,9 @@ vagrant destroy gce
 </pre>
 
 
-## Vagrant + Xpra (Resumable X11 Session)
+## Vagrant + Xpra
 
-Create X11 session running in docker
+Create X11 session
 
 <pre>
 vagrant ssh vbox -- -Y xpra start :$SESSION
@@ -83,7 +83,7 @@ vagrant ssh gce --  -Y xpra start :$SESSION
 </pre>
 
 
-Attach to X11 session running in docker
+Attach to X11 session
 
 <pre>
 vagrant ssh vbox -- -Y xpra attach :$SESSION
@@ -101,9 +101,9 @@ vagrant ssh gce --  -Y xpra stop :$SESSION
 </pre>
 
 
-## Vagrant + Docker w/ X11 Support via Xpra
+## Vagrant + Docker w/ Xpra
 
-Lifetime of a docker container connected to an X11 session
+Lifetime of a docker container connected to an X11 session that's run in the vagrant managed client. The X11 session from the client can be attached and detached from the host X11 session.
 
 <pre>
 DISPLAY=:$SESSION
