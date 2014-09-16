@@ -101,23 +101,42 @@ vagrant ssh gce --  -Y xpra stop :$SESSION
 </pre>
 
 
-## Vagrant + Docker w/ X11 Support
+## Vagrant + Docker w/ X11 Support via Xpra
 
-Start a docker container connected to an X11 session
+Lifetime of a docker container connected to an X11 session
 
 <pre>
 DISPLAY=:$SESSION
 XAUTH=/tmp/Xauthority-$SESSION
 XSOCK=/tmp/.X11-unix/X$SESSION
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
-TAG=ubuntu
-CMD=true
+SESSION=99
+TAG=xclock
+CMD=xclock
 </pre>
+
+Start an X11 session
+
+<pre>
+vagrant ssh vbox -- -Y xpra start :$SESSION
+vagrant ssh ec2 --  -Y xpra start :$SESSION
+vagrant ssh gce --  -Y xpra start :$SESSION
+</pre>
+
+Start container
 
 <pre>
 vagrant ssh vbox -- -Y docker run -e DISPLAY=:$DISPLAY -e XAUTHORITY=$XAUTH -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -i -t $TAG $CMD
 vagrant ssh ec2 --  -Y docker run -e DISPLAY=:$DISPLAY -e XAUTHORITY=$XAUTH -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -i -t $TAG $CMD
 vagrant ssh gce --  -Y docker run -e DISPLAY=:$DISPLAY -e XAUTHORITY=$XAUTH -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -i -t $TAG $CMD
+</pre>
+
+Attach to X11 session
+
+<pre>
+vagrant ssh vbox -- -Y xpra attach :$SESSION
+vagrant ssh ec2 --  -Y xpra attach :$SESSION
+vagrant ssh gce --  -Y xpra attach :$SESSION
 </pre>
 
 Stop / kill a docker container
@@ -128,6 +147,12 @@ vagrant ssh ec2 --  -Y docker stop|kill $CONTAINER
 vagrant ssh gce --  -Y docker stop|kill $CONTAINER
 </pre>
 
+Stop session
 
+<pre>
+vagrant ssh vbox -- -Y xpra stop :$SESSION
+vagrant ssh ec2 --  -Y xpra stop :$SESSION
+vagrant ssh gce --  -Y xpra stop :$SESSION
+</pre>
 
 
