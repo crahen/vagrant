@@ -35,6 +35,7 @@ Vagrant.configure("2") do |config|
     # Docker
     v.vm.provision "shell", inline: "sudo apt-get -y update"
     v.vm.provision "shell", inline: "sudo apt-get -y install docker.io"
+    v.vm.provision "shell", inline: "sudo apt-get -y install curl xpra"
     v.vm.provision "shell", inline: "sudo usermod -aG docker " + VAGRANT_SSH_USERNAME
 
   end
@@ -69,7 +70,7 @@ Vagrant.configure("2") do |config|
     # Docker
     g.vm.provision "shell", inline: "sudo apt-get -y upgrade"
     g.vm.provision "shell", inline: "sudo apt-get -y update"
-    g.vm.provision "shell", inline: "sudo apt-get -y install curl"
+    g.vm.provision "shell", inline: "sudo apt-get -y install curl xpra"
     g.vm.provision "shell", inline: "curl get.docker.io | sudo bash"
     g.vm.provision "shell", inline: "sudo usermod -a -G docker " + VAGRANT_SSH_USERNAME
 
@@ -107,6 +108,7 @@ Vagrant.configure("2") do |config|
     # Docker
     a.vm.provision "shell", inline: "sudo yum -y update"
     a.vm.provision "shell", inline: "sudo yum -y install docker"
+    a.vm.provision "shell", inline: "sudo yum -y install curl xpra"
     a.vm.provision "shell", inline: "sudo usermod -a -G docker " + VAGRANT_SSH_USERNAME
 
   end
